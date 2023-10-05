@@ -80,8 +80,7 @@ hist(x, breaks = seq(from = lambda - 4 * sqrt(lambda)/sqrt(n), to = lambda +
 sd <- sd(x)  # st dev of the sampling distribution
 sd #a little bit lower
 
-qqnorm(x)
-qqline(x)
+qqnorm(x)+qqline(x)
 ```
 
 ```{r convert_to_std_normal}
@@ -201,3 +200,8 @@ upper <- m + qt(1 - 0.05/2, df = sample_size - 1) * sem  # (1-alpha)/2 each in t
 ci_t <- c(lower, upper)
 ci_t
 ```
+# General Class Notes
+
+1. It is generally preferred that t-distribution is used and normality is not assumed. Unless we're talking about proportions. there, ND is preferred. 
+2. Fat tails give us a lot of wiggle room? What does that mean?
+
