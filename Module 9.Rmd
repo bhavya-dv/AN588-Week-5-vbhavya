@@ -130,4 +130,74 @@ abline(v = ci)
 abline(h = 0)
 ```
 
+## Small sample CIs
+n < 30
+Instead of z-distribution, we use a t-distribution.
 
+```{r t_distribution}
+mu <- 0
+sigma <- 1
+curve(dnorm(x, mu, 1), mu - 4 * sigma, mu + 4 * sigma, main = "Normal Curve=red\nStudent's t=blue",
+    xlab = "x", ylab = "f(x)", col = "red", lwd = 3)
+for (i in c(1, 2, 3, 4, 5, 10, 20, 100)) {
+    curve(dt(x, df = i), mu - 4 * sigma, mu + 4 * sigma, main = "T Curve", xlab = "x",
+        ylab = "f(x)", add = TRUE, col = "blue", lty = 5)
+}
+
+n <- 1e+05
+mu <- 3.5
+sigma <- 4
+x <- rnorm(n, mu, sigma)
+sample_size <- 30
+s <- sample(x, size = sample_size, replace = FALSE)
+m <- mean(s)
+m
+
+sd <- sd(s)
+sd
+
+sem <- sd(s)/sqrt(length(s))
+sem
+```
+
+```{r comp_of_ci__t_distribution}
+lower <- m - qnorm(1 - 0.05/2) * sem  # (1-alpha)/2 each in the upper and lower tails of the distribution
+upper <- m + qnorm(1 - 0.05/2) * sem  # (1-alpha)/2 each in the upper and lower tails of the distribution
+ci_norm <- c(lower, upper)
+ci_norm
+## [1] 1.933577 4.357288
+
+
+### Sample size 30
+lower <- m - qt(1 - 0.05/2, df = sample_size - 1) * sem  # (1-alpha)/2 each in the upper and lower tails of the distribution
+upper <- m + qt(1 - 0.05/2, df = sample_size - 1) * sem  # (1-alpha)/2 each in the upper and lower tails of the distribution
+ci_t <- c(lower, upper)
+ci_t
+```
+
+Using a much smaller sample size: 
+
+```{r sample_size_5}
+###sample size 5
+sample_size <- 5
+s <- sample(x, size = sample_size, replace = FALSE)
+m <- mean(s)
+m
+
+sd <- sd(s)
+sd
+
+sem <- sd(s)/sqrt(length(s))
+sem
+
+lower <- m - qnorm(1 - 0.05/2) * sem  # (1-alpha)/2 each in the upper and lower tails of the distribution
+upper <- m + qnorm(1 - 0.05/2) * sem  # (1-alpha)/2 each in the upper and lower tails of the distribution
+ci_norm <- c(lower, upper)
+ci_norm
+
+
+lower <- m - qt(1 - 0.05/2, df = sample_size - 1) * sem  # (1-alpha)/2 each in the upper and lower tails of the distribution
+upper <- m + qt(1 - 0.05/2, df = sample_size - 1) * sem  # (1-alpha)/2 each in the upper and lower tails of the distribution
+ci_t <- c(lower, upper)
+ci_t
+```
