@@ -293,3 +293,13 @@ pt
 ```
 
 FINI!!!
+
+# Class Notes: 
+
+1. Type 2 error is more acceptable than Type 1. 
+2. pnorm() uses standardized normal values. So another good reason to normalize our distributions. 
+3. Always contextualize p values wrt your question. Report t-value, degrees of freedom, and the p-value. This will allow for both the sample statistics and population values to be derivable from each other. 
+4. Why don't people like Welch's test other than the fact that it's annoying to deal with unequal variances?
+5. In unpaired samples case, and when variances are unequal, the pooled variance can give a slightly more significant p value than Welch's test. However, it is perfectly okay to not do that and just acknowledge that the unequal variances are affecting the higher p-value. 
+6. It's always nice to spell out the null-hypotheses in actual words that are relevant to want we want to study and in mathematical and statistical terms. 
+7. Unless we know what the arms of boxplots are (quartiles? Stddev?), do not be too confident in your inferences from just a boxplot while looking at someone else's analysis. 
